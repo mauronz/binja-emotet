@@ -34,17 +34,6 @@ def setup_hashdict(xor_key):
             func_dict[hsh] = sym["name"]
 
 
-def create_hashdict(xor_key, values):
-    hashdict = dict()
-    for sym in values:
-        hsh = 0
-        for c in sym:
-            hsh = ((hsh << 6) + ord(c) + (hsh << 0x10) - hsh) & 0xffffffff
-        hsh ^= xor_key
-        hashdict[hsh] = sym
-    return hashdict
-
-
 def find_xor_key(function):
     for bb in function.llil:
         for instr in bb:
